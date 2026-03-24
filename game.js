@@ -9,8 +9,8 @@ function beat(x, y, s){
     this.y=y;
     this.s=s;
     a.fillStyle='red';
-    a.fillRect(this.x,this.y,100,100)
-    a.clearRect(this.x,this.y,100,100)
+    a.fillRect(this.x+rectx,this.y,100,100)
+    a.clearRect(this.x+rectx-100,this.y,100,100)
     
 }
 
