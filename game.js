@@ -1,80 +1,73 @@
+//canvas constants
 const canvas = document.getElementById('myCanvas');                         
 const ctx = canvas.getContext('2d');
+
+//sprite constants
 const audioElement = new Audio("decibat_yellow.ogg");
 
+//other constants
 const RECT_WIDTH = 100;
 const RECT_HEIGHT = 100;
-const rectx=0;
-const beats = [
-    {x: 200, y: 100, speed: 100},
-    {x: 200, y: 200, speed: 100},
-    {x: 100, y: 400, speed: 100},
-    {x: 200, y: 500, speed: 100},
-    {x: 300, y: 500, speed: 100},
-    {x: 400, y: 500, speed: 100},
-    {x: 500, y: 400, speed: 100},
-    {x: 400, y: 100, speed: 100},
-    {x: 400, y: 200, speed: 100}
+const beatsx = [-800,-800,-800,-800,-800,-500,-500,-500,-500,-500,-700,-600,-300,-300,-300,-300,-300,200,200,100,200,300,400,500,400,400];
+const beatsy = [100,200,300,400,500,100,200,300,400,500,300,300,100,200,300,400,500,100,200,400,500,500,500,400,100,200];
 
-];
+//variables
+let z = 0;
 
-
-
-function drawBeat(i){
-    const beat = beats[i];                                                      
-    console.log(beats[0], beats[1])
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(beat.x + rectx,beat.y,RECT_WIDTH,RECT_HEIGHT)
-}
-
-for(i=0;i<beats.length;i++){
-    drawBeat(i);
-}
-
-
-
-//code
-function delay(ms) {
+//functions
+function delay(ms){ //delay function
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
-
-
-
-function play(){
-    addEventListener('keydown', (e) =>{
-    if(e.keyCode===80){
-        if(z==0){
-            audioElement.play();
-            z=1;
-            document.getElementById("click").innerHTML = "<b>pause</b>";
-            return;
-        }
-        if(z==1){
-            audioElement.pause();
-            z=0;
-            document.getElementById("click").innerHTML = "<b>play</b>";
-            return;
-        }
+function drawBeat(){ //draws beats duh
+    for(i=0;i<beatsx.length;i++){
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(beatsx[i],beatsy[i],RECT_WIDTH,RECT_HEIGHT);
     }
-    if(e.keyCode===82){
-            audioElement.pause();
-            audioElement.currentTime = 0;
-            z=0;
-            document.getElementById("click").innerHTML = "<b>play</b>";  
-            alert('restart');
-            return;
-    }
-
-        
-        
-       
-    })  
+    
 }
 
+async function updater(){ //game ticking loop
+for(let i = 0; i<1080; i++){
+    await delay(1);
+    for(let i = 0; i<beatsx.length; i++){
+        beatsx[i]+=2;
+    }
+    
+    console.log(beatsx[i],beatsy[i]);
+    ctx.clearRect(0,0,10000,1000);
+    drawBeat(); 
+}
+}
+
+function play(){ //music control (will eventually replace as player controls)
+    addEventListener('keydown', (e) =>{
+        if(e.keyCode===80){
+            if(z==0){
+                audioElement.play();
+                z=1;
+                document.getElementById("click").innerHTML = "<b>pause</b>";
+                return;
+            }
+            if(z==1){
+                audioElement.pause();
+                z=0;
+                document.getElementById("click").innerHTML = "<b>play</b>";
+                return;
+            }
+    }
+            if(e.keyCode===82){
+                audioElement.pause();
+                audioElement.currentTime = 0;
+                z=0;
+                document.getElementById("click").innerHTML = "<b>play</b>";  
+                alert('restart');
+                return;
+    }
+    })  
+    
+}
 
 //run
+updater();
 play();
-
-//sprites
