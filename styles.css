@@ -1,0 +1,33 @@
+#grad {
+  background-image: linear-gradient(to right, rgb(27, 0, 86), rgb(97, 3, 81), rgb(4, 81, 119));
+}
+.rectangle{
+  width: 30%;
+  height: 30%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 
+              0 0 10px rgba(255, 255, 255, 0.5);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  font-family: "Mozilla Text";
+  font-size: 50px;
+  transition: 1s cubic-bezier(0.23, 1, 0.320, 1);
+  backdrop-filter: blur(10px);
+}
+.rectangle:hover {
+  transform:scale(1.2);
+}
+#menu{
+  top: 35%;
+  left: 35%;
+}
+#H2{
+  font-family: 'Mozilla Text';
+}
+#textelements-index{
+  color: white;
+}
